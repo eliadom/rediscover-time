@@ -1,0 +1,39 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<div class="mainContainer">
+  <div class="sidenav">
+    <img src="assets/logo.png" class="logoStyle">
+    <div class="sidenavContent">
+
+          <button class="sidenavButton">
+            <a [routerLink]="'main'">
+              <mat-icon class="icons">attractions</mat-icon>
+              Atraccions i espectacles
+            </a>
+          </button>
+
+          <button class="sidenavButton">
+            <a [routerLink]="'cua'">
+            <mat-icon class="icons">schedule</mat-icon>
+            La meva cua
+            </a>
+          </button>
+
+    </div>
+
+  </div>
+
+  <div class="test">
+    <div class="mainRouteContent">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
