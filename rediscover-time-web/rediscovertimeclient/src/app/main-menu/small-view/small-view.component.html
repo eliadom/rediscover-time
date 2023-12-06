@@ -1,4 +1,12 @@
-<div>
- name: {{queue.name}}
+<div class="contenidorAtraccio">
+  <img class="imatgesAtraccions" src="assets/queue_images/{{queue.name}}.jpg">
+  <div class="nomAtraccioDetalls">
+    <div class="nomAtraccio">{{queue.name}}</div>
+    <div class="descripcions">
+      <a>Temps pel següent: {{queue.timeForNextTrain}}</a>
+      <a>Espera estimada: {{queue.estimatedTime}}</a>
+      <button mat-flat-button>Apunta'm</button>
+    </div>
+  </div>
 </div>
 

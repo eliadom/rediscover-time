@@ -1,14 +1,15 @@
-
-<div class="containerMainViews">
 <ng-container *ngIf="loading === 0">
-  <p>showing list</p>
-  <!--  <ng-container *ngFor="let queue in allQueues">-->
-  <!--    {{queue.id}}-->
-  <!--  </ng-container>-->
-  <app-small-view *ngFor="let queue of allQueues"
-                  [queue]="queue">
-  </app-small-view>
+  <div class="containerMainViews">
+    <div class="titolLlista">
+      Totes les atraccions
+    </div>
+    <div class="atraccionsLoopContainer">
+      <app-small-view *ngFor="let queue of allQueues"
+                      [queue]="queue"
+      >
+      </app-small-view>
+    </div>
 
 
+  </div>
 </ng-container>
-</div>

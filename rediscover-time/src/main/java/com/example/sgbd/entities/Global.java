@@ -1,9 +1,7 @@
-package com.example.sgbd;
+package com.example.sgbd.entities;
 
-import com.example.sgbd.entities.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.sgbd.entities.QueueService;
 
 import javax.annotation.PostConstruct;
 
@@ -32,11 +30,13 @@ public class Global {
         Queue noria = new Queue("Noria",10,5);
         Queue tortugasNinja = new Queue("Tortugas Ninja",11,6);
         Queue gusanoLoco = new Queue("Gusano Loco",20,10);
+        Queue marioLand = new Queue("Mario Land",30,5);
 
         queueService.addQueue(ratonVacilon);
         queueService.addQueue(noria);
         queueService.addQueue(tortugasNinja);
         queueService.addQueue(gusanoLoco);
+        queueService.addQueue(marioLand);
 
 
 //        Queue found = queueService.getQueueById("Queue4");

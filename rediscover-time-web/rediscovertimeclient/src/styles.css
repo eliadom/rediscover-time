@@ -6,3 +6,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .containerMainViews{
   padding: 16px;
 }
+
+
+.mdc-button{
+  background: #c06550 !important;
+  border-radius: 16px !important;
+  color: white !important;
+  font-size: 20px;
+}

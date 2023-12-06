@@ -1,0 +1,17 @@
+
+.atraccionsLoopContainer{
+  height: calc(100vh - 170px);
+  overflow: scroll;
+  overflow-x: hidden;
+
+
+}
+
+.titolLlista{
+  font-family: Tahoma, sans-serif;
+  font-weight: 800;
+  margin: 16px;
+  font-size: 70px;
+  line-height: 70px;
+  color: #c06550;
+}
