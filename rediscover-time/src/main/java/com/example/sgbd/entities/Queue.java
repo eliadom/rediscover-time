@@ -28,6 +28,8 @@ public class Queue implements Serializable {
     private int estimatedTime;
     private int timeForNextTrain;
 
+    private int capacity;
+
     // should come before any other method.
     // @Cacheable("attributetoreturn")
 
@@ -54,10 +56,11 @@ public class Queue implements Serializable {
 
     }
 
-    public Queue(String name, int estimatedTime, int timeForNextTrain){
+    public Queue(String name, int estimatedTime, int timeForNextTrain, int capacity){
         this.id = name;
         this.estimatedTime = estimatedTime;
         this.timeForNextTrain = timeForNextTrain;
+        this.capacity = capacity;
     }
 
     public String getName(){
@@ -71,4 +74,8 @@ public class Queue implements Serializable {
     public int getTimeForNextTrain(){
         return this.timeForNextTrain;
     }
+
+    public int getCapacity(){ return this.capacity; }
+
+    public void addCapacity(){ this.capacity++; }
 }
