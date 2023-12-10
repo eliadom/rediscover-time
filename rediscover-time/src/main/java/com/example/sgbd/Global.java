@@ -28,10 +28,10 @@ public class Global {
 //        queueService.addQueue(queue2);
 
         queueService.removeAllEntries();
-        Queue ratonVacilon = new Queue("Ratón Vacilón",12,2);
-        Queue noria = new Queue("Noria",10,5);
-        Queue tortugasNinja = new Queue("Tortugas Ninja",11,6);
-        Queue gusanoLoco = new Queue("Gusano Loco",20,10);
+        Queue ratonVacilon = new Queue("Ratón Vacilón",12,2, 50);
+        Queue noria = new Queue("Noria",10,5,30);
+        Queue tortugasNinja = new Queue("Tortugas Ninja",11,6,15);
+        Queue gusanoLoco = new Queue("Gusano Loco",20,10,40);
 
         queueService.addQueue(ratonVacilon);
         queueService.addQueue(noria);
