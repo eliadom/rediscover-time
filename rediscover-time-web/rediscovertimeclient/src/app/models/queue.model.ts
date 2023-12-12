@@ -4,6 +4,7 @@ export class QueueModel {
   timeForNextTrain: number = 0;
   name: string = "";
 
+  capacity: number = 0;
 
 
 

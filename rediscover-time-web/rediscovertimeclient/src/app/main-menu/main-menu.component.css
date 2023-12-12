@@ -3,7 +3,8 @@
   height: calc(100vh - 170px);
   overflow: scroll;
   overflow-x: hidden;
-
+width: 70%;
+  margin: 0 auto;
 
 }
 
@@ -14,4 +15,30 @@
   font-size: 70px;
   line-height: 70px;
   color: #c06550;
+}
+
+
+
+::-webkit-scrollbar {
+  background: transparent !important;
+  width: 10px;
+  border-radius: 16px;
+}
+
+::-webkit-scrollbar:hover {
+  background: #dcdcdc !important;
+  width: 10px;
+}
+
+
+
+::-webkit-scrollbar-thumb {
+  opacity: 0.5 !important;
+border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover{
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.4);
 }
