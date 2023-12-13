@@ -1,0 +1,21 @@
+<div class="titol">
+  Apunta't a...
+  <div class="nomAtraccio">
+    {{queue.name}}
+  </div>
+</div>
+<div class="queuePrompt">
+  Acosta la teva targeta al lector
+</div>
+
+<div class="inputNom">
+  ...o escriu el codi de la targeta a continuació
+  <form class="example-form" [formGroup]="formGroup">
+    <mat-form-field class="example-full-width"
+    formControlName="cardId">
+      <mat-label>Codi tarjeta</mat-label>
+      <input matInput placeholder="Ex. Pizza" value="Sushi">
+    </mat-form-field>
+  </form>
+
+</div>

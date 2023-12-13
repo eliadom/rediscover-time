@@ -15,6 +15,13 @@ export class QueueService {
     private http : HttpClient
   ){ }
 
+  apunta(client : string, atraccio : string){
+    return this.http.post<QueueModel>(`${this.urlQueue}/apunta/`, {
+      client : client,
+      atraccio : atraccio
+    })
+  }
+
   getAllQueues() : Observable<QueueModel[]> {
     return this.http.get<QueueModel[]>(`${this.urlQueue}/all`);
   }

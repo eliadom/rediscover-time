@@ -13,5 +13,12 @@ public interface ClientRepository extends JpaRepository<Client, String> {
 
     public List<Client> findAll();
 
+    // aquesta crida ens retorna totes les queues a les que
+    // s'ha apuntat un client en concret.
+    public List<Client> findAllByName(String name);
+
+    // aquesta crida ens retorna totes les queues corresponents
+    // a una atracció en concret.
+    public List<Client> findAllByQueueId(String id);
 
 }

@@ -9,9 +9,6 @@
         <module name="rediscovertime" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="rediscovertime" target="11" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

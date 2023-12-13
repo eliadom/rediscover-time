@@ -3,10 +3,10 @@
   <div class="nomAtraccioDetalls">
     <div class="nomAtraccio">{{queue.name}}</div>
     <div class="descripcions">
-      <a>Temps pel següent: {{queue.timeForNextTrain}}</a>
-      <a>Espera estimada: {{queue.estimatedTime}}</a>
-      <a>Capacitat màxima: {{queue.capacity}}</a>
-      <button mat-flat-button>Apunta'm</button>
+      <a *ngIf="!personal">Temps pel següent: {{queue.timeForNextTrain}}</a>
+      <a *ngIf="!personal">Capacitat màxima: {{queue.capacity}}</a>
+      <a>{{ personal ? 'Serà el teu torn en:' : 'Espera estimada:' }} {{queue.estimatedTime}}</a>
+      <button mat-flat-button (click)="apunta()">Apunta'm</button>
     </div>
   </div>
   <!--  <div class="explicacio">-->

@@ -3,10 +3,7 @@ package com.example.sgbd.entities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,19 +18,21 @@ public class ClientController {
     @Autowired
     private QueueService queueService;
 
+    @Autowired
+    private ClientService clientService;
+
     // @Cacheable(value = "users", key = "#userId", unless = "#result.followers < 12000")
 
-    @GetMapping("/{name}")
-    private Queue getQueuesFrom(@PathVariable("name") String name){
-        return queueService.getQueueByName(name);
+    @PostMapping("/apunta")
+    private Queue apunta(@RequestBody String client, @RequestBody String atraccio){
+        // aconseguim l'atraccio a la qual ens apuntem
+        Queue queue = queueService.getQueueByName(atraccio);
+        clientService.addClientQueue(client, queue);
+        return null; // test;
     }
 
 //    @GetMapping(path="/all")
-    @GetMapping("/all")
-    private List<Queue> getAllQueues(){
 
-        return queueService.getAllQueues();
-    }
 
 
 

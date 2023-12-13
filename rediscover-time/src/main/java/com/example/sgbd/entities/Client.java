@@ -27,32 +27,12 @@ public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+
+    private String name;
     private int positionInQueue;
 
     @ManyToOne
     private Queue queue;
-
-    // should come before any other method.
-    // @Cacheable("attributetoreturn")
-
-    // -----------------------------------------------
-    //
-    // We can use the @CacheEvict annotation to indicate
-    // the removal of one or more/all values so that fresh
-    // values can be loaded into the cache again:
-    //
-    // @CacheEvict(value="addresses", allEntries=true)
-    // public String getAddress(Class class)
-    //
-    // -----------------------------------------------
-    //
-    // With the @CachePut annotation, we can update the
-    // content of the cache without interfering with the
-    // method execution. That is, the method will always
-    // be executed and the result cached:
-    //
-    // @CachePut(value="addresses")
-    // public String getAddress(Customer customer) {...}
 
     public Client() {
 
@@ -62,6 +42,17 @@ public class Client implements Serializable {
         this.queue = queue;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
+    }
+
+    public void setPositionInQueue(int num){
+        this.positionInQueue = num;
+    }
 
 
 }

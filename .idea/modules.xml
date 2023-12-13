@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/redis.iml" filepath="$PROJECT_DIR$/.idea/redis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rediscover-time/rediscovertime.iml" filepath="$PROJECT_DIR$/rediscover-time/rediscovertime.iml" />
     </modules>
   </component>
 </project>
