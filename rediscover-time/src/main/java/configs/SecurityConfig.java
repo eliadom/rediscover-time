@@ -16,12 +16,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         logger.info("Configurant security...");
         http
+                .cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .anyRequest().permitAll();
-//                .and()
-//                .csrf().disable()
-//                .httpBasic().disable();
         logger.info("Security configurat.");
     }
 }

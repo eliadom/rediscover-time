@@ -8,20 +8,26 @@
   height: 180px;
   opacity: 0.8;
   display: flex;
+  justify-content: space-between;
+
 }
 
-.nomAtraccioDetalls{
-  padding: 16px;
-}
-
-.imatgesAtraccions{
-  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1.0) 20%, transparent 100%);
-}
 
 .contenidorAtraccio:hover{
   opacity: 1;
   transition-duration: 0.25s;
   cursor: pointer;
+
+}
+
+
+.nomAtraccioDetalls{
+  padding: 16px;
+  min-width: 400px;
+}
+
+.imatgesAtraccions{
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1.0) 20%, transparent 100%);
 }
 
 .nomAtraccio{
@@ -41,3 +47,6 @@ a{
   font-size: 20px;
 }
 
+.explicacio{
+  max-width: 35%;
+}

@@ -1,15 +1,22 @@
 
 <div class="containerMainViews">
-<ng-container *ngIf="loading === 0">
-  <p>showing list</p>
-  <!--  <ng-container *ngFor="let queue in allQueues">-->
-  <!--    {{queue.id}}-->
-  <!--  </ng-container>-->
-<!--  <app-small-view *ngFor="let queue of allQueues"-->
-<!--                  [queue]="queue">-->
-<!--  </app-small-view>-->
-  aqui van les cues on ens hem apuntat...
+
+  Consulta l'estat de la teva cua:
+  <form class="example-form" [formGroup]="formGroup" style="margin: 10px 0; width: 100%">
+    <mat-form-field class="inputElement"
+    >
+      <mat-label>Codi tarjeta</mat-label>
+      <input matInput formControlName="cardid">
+    </mat-form-field>
+
+  </form>
+  <button mat-flat-button (click)="buscaLaMevaCua()">Busca</button>
+  <div *ngIf="trobat">
+    t'has apuntat a: {{laMevaCua.queueof.id}}
+  </div>
+  <div *ngIf="loading !== 0">
+    Buscant...
+  </div>
 
 
-</ng-container>
 </div>

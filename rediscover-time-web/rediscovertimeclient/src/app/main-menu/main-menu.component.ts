@@ -23,6 +23,7 @@ export class MainMenuComponent implements OnInit {
     this.queueService.getAllQueues().subscribe((queues : QueueModel[]) => {
       console.log("queues:")
       console.log(queues)
+      // TODO: ordenar cues segons temps espera actual
 
       this.allQueues = queues;
 

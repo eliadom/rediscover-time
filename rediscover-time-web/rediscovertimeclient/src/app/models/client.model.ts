@@ -1,5 +1,8 @@
+import {QueueModel} from "./queue.model";
+
 export class ClientModel {
-  id : number;
+  id : string;
+  queueof : QueueModel
 //
 
 }

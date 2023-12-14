@@ -1,0 +1,34 @@
+<div class="contenidorDialeg">
+  <div class="titol">
+    <div>
+      Apunta't a la cua de...
+    </div>
+    <div class="nomAtraccio">
+      {{queue.id}}
+    </div>
+  </div>
+  <div class="queuePrompt">
+    Acosta la teva targeta al lector
+  </div>
+
+  <div class="inputNom">
+    <div class="inputNomPetit">
+    ...o escriu el codi de la targeta a continuació
+    </div>
+    <form class="example-form" [formGroup]="formGroup" style="margin: 10px 0; width: 100%">
+      <mat-form-field class="inputElement"
+                      >
+        <mat-label>Codi tarjeta</mat-label>
+        <input matInput formControlName="cardid">
+      </mat-form-field>
+    </form>
+
+  </div>
+
+  <div class="botons">
+    valor: {{test}}
+    <button mat-flat-button style="width: 100%" (click)="apuntaCua()">
+      Fer cua
+    </button>
+  </div>
+</div>

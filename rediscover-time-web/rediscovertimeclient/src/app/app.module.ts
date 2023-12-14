@@ -12,13 +12,20 @@ import {RouterModule} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import {SmallViewComponent} from "./main-menu/small-view/small-view.component";
 import {CuaMenuComponent} from "./cua-menu/cua-menu.component";
+import {ConfirmQueueDialogComponent} from "./main-menu/small-view/confirm-queue-dialog/confirm-queue-dialog.component";
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
     AppComponent,
     MainMenuComponent,
     SmallViewComponent,
-    CuaMenuComponent
+    CuaMenuComponent,
+    ConfirmQueueDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,12 @@ import {CuaMenuComponent} from "./cua-menu/cua-menu.component";
     HttpClientModule,
     NgForOf,
     NgFor,
-    NgIf
+    NgIf,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

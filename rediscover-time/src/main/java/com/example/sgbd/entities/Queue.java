@@ -63,7 +63,7 @@ public class Queue implements Serializable {
         this.capacity = capacity;
     }
 
-    public String getName(){
+    public String getId(){
         return this.id;
     }
 
