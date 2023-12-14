@@ -1,10 +1,10 @@
 package com.example.sgbd.entities;
 
-import antlr.collections.List;
-import io.netty.util.Timer;
+//import io.netty.util.Timer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalTime;
+import java.util.*;
 import javax.annotation.PostConstruct;
 
 @Service
@@ -28,17 +28,93 @@ public class Global {
 //        queueService.addQueue(queue2);
 
         queueService.removeAllEntries();
-        Queue ratonVacilon = new Queue("Ratón Vacilón",12,2,50);
-        Queue noria = new Queue("Noria",10,5,30);
-        Queue tortugasNinja = new Queue("Tortugas Ninja",11,6,15);
-        Queue gusanoLoco = new Queue("Gusano Loco",20,10,40);
-        Queue marioLand = new Queue("Mario Land",30,5,60);
+        Queue ratonVacilon = new Queue("Ratón Vacilón",15000,5000,50);
+        Queue noria = new Queue("Noria",10000,5000,30);
+        Queue tortugasNinja = new Queue("Tortugas Ninja",10000,10000,15);
+        Queue gusanoLoco = new Queue("Gusano Loco",20000,15000,40);
+        Queue marioLand = new Queue("Mario Land",30000,20000,60);
 
         queueService.addQueue(ratonVacilon);
         queueService.addQueue(noria);
         queueService.addQueue(tortugasNinja);
         queueService.addQueue(gusanoLoco);
         queueService.addQueue(marioLand);
+
+        List<Queue> allQueues = queueService.getAllQueues();
+        Collections.sort(allQueues,new queueComp());
+
+        for (int i = 0; i < allQueues.size(); i++) {
+            System.out.println("Ride " + i + ": " + allQueues.get(i).getId() + " " + allQueues.get(i).getTimeForNextTrain()/1000);
+        }
+
+        System.out.println("Starting Execution at: " + java.time.LocalTime.now());
+        int rate = 5000;
+        Timer t = new Timer();
+        TimerTask tt = new TimerTask() {
+            @Override
+            public void run() {
+                List<Queue> updateQueues = new ArrayList<>();
+
+                if(ratonVacilon.getTimeForNextTrain() - rate <= 0){
+                    ratonVacilon.resetTimeForNextTrain();
+                    System.out.println("Raton Vacilon finished! " + java.time.LocalTime.now());
+                }
+                else {
+                    ratonVacilon.modifyTimeForNextTrain(rate);
+                    //System.out.println("Time Remaining for Raton Vacilon: " + ratonVacilon.getTimeForNextTrain()/1000);
+                }
+                updateQueues.add(ratonVacilon);
+
+                if(noria.getTimeForNextTrain() - rate <= 0){
+                    noria.resetTimeForNextTrain();
+                    System.out.println("Noria finished! " + java.time.LocalTime.now());
+                }
+                else {
+                    noria.modifyTimeForNextTrain(rate);
+                    //System.out.println("Time Remaining for Noria: " + noria.getTimeForNextTrain()/1000);
+                }
+                updateQueues.add(noria);
+
+                if(tortugasNinja.getTimeForNextTrain() - rate <= 0){
+                    tortugasNinja.resetTimeForNextTrain();
+                    System.out.println("Tortugas Ninja finished! " + java.time.LocalTime.now());
+                }
+                else {
+                    tortugasNinja.modifyTimeForNextTrain(rate);
+                    //System.out.println("Time Remaining for Tortugas Ninja: " + tortugasNinja.getTimeForNextTrain()/1000);
+                }
+                updateQueues.add(tortugasNinja);
+
+                if(gusanoLoco.getTimeForNextTrain() - rate <= 0){
+                    gusanoLoco.resetTimeForNextTrain();
+                    System.out.println("Gusano Loco finished! " + java.time.LocalTime.now());
+                }
+                else {
+                    gusanoLoco.modifyTimeForNextTrain(rate);
+                    //System.out.println("Time Remaining for Gusano Loco: " + gusanoLoco.getTimeForNextTrain()/1000);
+                }
+                updateQueues.add(gusanoLoco);
+
+                if(marioLand.getTimeForNextTrain() - rate <= 0){
+                    marioLand.resetTimeForNextTrain();
+                    System.out.println("Mario Land finished! " + java.time.LocalTime.now());
+                }
+                else {
+                    marioLand.modifyTimeForNextTrain(rate);
+                    //System.out.println("Time Remaining for Mario Land: " + marioLand.getTimeForNextTrain()/1000);
+                }
+                updateQueues.add(marioLand);
+                //System.out.println("New time is: " + java.time.LocalTime.now());
+
+                Collections.sort(updateQueues,new queueComp());
+
+                for (int i = 0; i < updateQueues.size(); i++) {
+                    System.out.println("Ride " + i + ": " + updateQueues.get(i).getId() + " " + updateQueues.get(i).getTimeForNextTrain()/1000);
+                }
+
+            };
+        };
+        t.scheduleAtFixedRate(tt,1000,rate);
 
 //        ArrayList<Queue> queueManagement = queueService.getAllQueues();
 //        Map<Queue,Integer> queueTimes = new HashMap<>();

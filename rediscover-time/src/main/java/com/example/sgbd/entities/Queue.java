@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.io.*;
+import java.lang.*;
+import java.util.*;
 
 
 @EnableCaching
@@ -71,6 +74,21 @@ public class Queue implements Serializable {
     public int getEstimatedTime(){
         return this.estimatedTime;
     }
+    /*
+    public int getEstimatedTimeInMS(){
+        return this.estimatedTime*1000;
+    }
+    public int getTimeForNextTrainInMS(){
+        return this.timeForNextTrain*1000;
+    }
+    */
+    public void modifyTimeForNextTrain(int rate){
+        this.timeForNextTrain -= rate;
+    }
+    public void resetTimeForNextTrain(){
+        this.timeForNextTrain = estimatedTime;
+    }
+
     public int getTimeForNextTrain(){
         return this.timeForNextTrain;
     }
@@ -78,4 +96,11 @@ public class Queue implements Serializable {
     public int getCapacity(){ return this.capacity; }
 
     public void addCapacity(){ this.capacity++; }
+}
+
+class queueComp implements Comparator<Queue>{
+    public int compare(Queue a, Queue b)
+    {
+        return a.getTimeForNextTrain() - b.getTimeForNextTrain();
+    }
 }

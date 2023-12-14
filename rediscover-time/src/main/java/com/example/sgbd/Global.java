@@ -67,6 +67,15 @@ public class Global {
 //        Queue found = queueService.getQueueById("Queue4");
 //        System.out.println("FOUND IS: "+ found.getId() + " WITH TEST: " + found.getTest());
 
+        /*Timer t = new Timer();
+        TimerTask tt = new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("New time is: " + java.time.LocalTime.now());
+            };
+        };
+        t.scheduleAtFixedRate(tt,1000,15000);
+        */
     }
 
     public List<Queue> getAllMatchingList(Map<Queue,Integer> map, int timeToResolve){
