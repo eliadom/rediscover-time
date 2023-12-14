@@ -4,11 +4,12 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
@@ -25,29 +26,35 @@ public class Client implements Serializable {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private int id;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    private String id;
 
-    private String name;
     private int positionInQueue;
 
     @ManyToOne
-    private Queue queue;
+    private Queue queueof;
 
     public Client() {
 
     }
 
     public Client(Queue queue) {
-        this.queue = queue;
+        this.queueof = queue;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setQueue(Queue queue) {
-        this.queue = queue;
+    public String getId(){
+        return this.id;
+    }
+
+    public void setQueueof(Queue queue) {
+        this.queueof = queue;
+    }
+
+    public Queue getQueueof(){
+        return  this.queueof;
     }
 
     public void setPositionInQueue(int num){

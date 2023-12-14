@@ -15,13 +15,30 @@ public class ClientService {
     ClientRepository clientRepository;
 
     @Transactional
-    public void addClientQueue(String clientName, Queue queue){
+    public Client addClientQueue(String clientName, Queue queueof){
+        String queue_id = queueof.getId();
+//        Optional<Client> potserExisteix = clientRepository.findClientByQueue_IdAndName(queue.getId(), clientName);
+        boolean potserExisteix = clientRepository.existsById(clientName);
+        if (potserExisteix){
+//            throw new ServiceException(String.format("Ja estàs a una cua"));
+            return null;
+        }
         Client client = new Client();
-        client.setQueue(queue);
-        client.setName(clientName);
-       //  List<Client> allQueues
+        client.setQueueof(queueof);
+        client.setId(clientName);
+        return clientRepository.save(client);
     }
 
+
+    public Client getQueueByName(String name){
+        Optional<Client> clientOptional = clientRepository.findById(name);
+        if (clientOptional.isPresent()){
+            return clientOptional.get();
+        }
+        else{
+            throw new ServiceException(String.format("Client with name %s does not exist",name));
+        }
+    }
 
 
 

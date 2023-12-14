@@ -1,7 +1,7 @@
 <div class="contenidorAtraccio">
-  <img class="imatgesAtraccions" src="assets/queue_images/{{queue.name}}.jpg">
+  <img class="imatgesAtraccions" src="assets/queue_images/{{queue.id}}.jpg">
   <div class="nomAtraccioDetalls">
-    <div class="nomAtraccio">{{queue.name}}</div>
+    <div class="nomAtraccio">{{queue.id}}</div>
     <div class="descripcions">
       <a *ngIf="!personal">Temps pel següent: {{queue.timeForNextTrain}}</a>
       <a *ngIf="!personal">Capacitat màxima: {{queue.capacity}}</a>

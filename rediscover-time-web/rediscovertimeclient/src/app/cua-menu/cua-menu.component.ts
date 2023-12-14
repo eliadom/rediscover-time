@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {QueueModel} from "../models/queue.model";
 import {QueueService} from "../queue-service/queue-service.service";
+import {ClientModel} from "../models/client.model";
+import {FormControl, FormGroup} from "@angular/forms";
+import {pipe} from "rxjs";
 
 @Component({
   selector: 'app-cua-menu',
@@ -10,28 +13,36 @@ import {QueueService} from "../queue-service/queue-service.service";
 export class CuaMenuComponent implements OnInit {
 
   allQueues: QueueModel[] = [];
+
+  laMevaCua : ClientModel;
+  trobat : boolean = false;
   loading = 0;
 
+  idName : string;
   constructor(
     private queueService: QueueService
   ) {
 
   }
-
+  formGroup : FormGroup;
   ngOnInit() {
+
+    this.formGroup = new FormGroup({
+      cardid: new FormControl(''),
+    });
+  }
+
+  buscaLaMevaCua(){
+    // this.laMevaCua = null;
+    let tarja = this.formGroup.get('cardid')!.value;
     this.loading--;
-    this.queueService.getAllQueues().subscribe((queues : QueueModel[]) => {
-      console.log("queues:")
+    this.queueService.getClient(tarja).subscribe((queues : ClientModel) => {
+      console.log("me:")
+      this.trobat = true;
       console.log(queues)
-
-      this.allQueues = queues;
-
-      console.log("this.allQueues:")
-      console.log(this.allQueues)
+      this.laMevaCua = queues;
 
       this.loading++;
     })
-
-
   }
 }

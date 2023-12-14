@@ -9,9 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, String> {
-    public Optional<Client> findById(String name);
-
-    public List<Client> findAll();
 
     // aquesta crida ens retorna totes les queues a les que
     // s'ha apuntat un client en concret.
@@ -19,6 +16,7 @@ public interface ClientRepository extends JpaRepository<Client, String> {
 
     // aquesta crida ens retorna totes les queues corresponents
     // a una atracció en concret.
-    public List<Client> findAllByQueueId(String id);
+
+
 
 }
