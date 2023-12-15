@@ -28,11 +28,22 @@ public class Global {
 //        queueService.addQueue(queue2);
 
         queueService.removeAllEntries();
-        Queue ratonVacilon = new Queue("Ratón Vacilón",15000,5000,50);
-        Queue noria = new Queue("Noria",10000,5000,30);
-        Queue tortugasNinja = new Queue("Tortugas Ninja",10000,10000,15);
-        Queue gusanoLoco = new Queue("Gusano Loco",20000,15000,40);
-        Queue marioLand = new Queue("Mario Land",30000,20000,60);
+
+        Vector<String> rvClients = new Vector<String>();
+
+        //sets 15 people in queue
+        for(int i = 1; i <= 15; i++) rvClients.add("a"+i);
+
+        Vector<String> norClients = new Vector<String>();
+        Vector<String> tortClients = new Vector<String>();
+        Vector<String> gusClients = new Vector<String>();
+        Vector<String> marClients = new Vector<String>();
+
+        Queue ratonVacilon = new Queue("Ratón Vacilón",15000,5000,5,10,rvClients);
+        Queue noria = new Queue("Noria",10000,5000,30, 15, norClients);
+        Queue tortugasNinja = new Queue("Tortugas Ninja",10000,10000,15, 5, tortClients);
+        Queue gusanoLoco = new Queue("Gusano Loco",20000,15000,40, 20, gusClients);
+        Queue marioLand = new Queue("Mario Land",30000,20000,60, 40, marClients);
 
         queueService.addQueue(ratonVacilon);
         queueService.addQueue(noria);
@@ -48,7 +59,7 @@ public class Global {
         }
 
         System.out.println("Starting Execution at: " + java.time.LocalTime.now());
-        int rate = 5000;
+        int rate = 1000;
         Timer t = new Timer();
         TimerTask tt = new TimerTask() {
             @Override
@@ -57,11 +68,12 @@ public class Global {
 
                 if(ratonVacilon.getTimeForNextTrain() - rate <= 0){
                     ratonVacilon.resetTimeForNextTrain();
+                    ratonVacilon.takeClientsFromQueue();
                     System.out.println("Raton Vacilon finished! " + java.time.LocalTime.now());
                 }
                 else {
                     ratonVacilon.modifyTimeForNextTrain(rate);
-                    //System.out.println("Time Remaining for Raton Vacilon: " + ratonVacilon.getTimeForNextTrain()/1000);
+
                 }
                 updateQueues.add(ratonVacilon);
 
@@ -71,7 +83,7 @@ public class Global {
                 }
                 else {
                     noria.modifyTimeForNextTrain(rate);
-                    //System.out.println("Time Remaining for Noria: " + noria.getTimeForNextTrain()/1000);
+
                 }
                 updateQueues.add(noria);
 
@@ -81,7 +93,7 @@ public class Global {
                 }
                 else {
                     tortugasNinja.modifyTimeForNextTrain(rate);
-                    //System.out.println("Time Remaining for Tortugas Ninja: " + tortugasNinja.getTimeForNextTrain()/1000);
+
                 }
                 updateQueues.add(tortugasNinja);
 
@@ -91,7 +103,7 @@ public class Global {
                 }
                 else {
                     gusanoLoco.modifyTimeForNextTrain(rate);
-                    //System.out.println("Time Remaining for Gusano Loco: " + gusanoLoco.getTimeForNextTrain()/1000);
+
                 }
                 updateQueues.add(gusanoLoco);
 
@@ -101,7 +113,7 @@ public class Global {
                 }
                 else {
                     marioLand.modifyTimeForNextTrain(rate);
-                    //System.out.println("Time Remaining for Mario Land: " + marioLand.getTimeForNextTrain()/1000);
+
                 }
                 updateQueues.add(marioLand);
                 //System.out.println("New time is: " + java.time.LocalTime.now());

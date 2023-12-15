@@ -31,7 +31,12 @@ public class Queue implements Serializable {
     private int estimatedTime;
     private int timeForNextTrain;
 
+    //people on ride
     private int capacity;
+    //maximum people on ride
+    private int maxCapacity;
+    //people in queue
+    private Vector<String> clientsInQueue;
 
     // should come before any other method.
     // @Cacheable("attributetoreturn")
@@ -59,11 +64,13 @@ public class Queue implements Serializable {
 
     }
 
-    public Queue(String name, int estimatedTime, int timeForNextTrain, int capacity){
+    public Queue(String name, int estimatedTime, int timeForNextTrain, int maxCapacity, int capacity, Vector<String> clientsInQueue){
         this.id = name;
         this.estimatedTime = estimatedTime;
         this.timeForNextTrain = timeForNextTrain;
+        this.maxCapacity = maxCapacity;
         this.capacity = capacity;
+        this.clientsInQueue = clientsInQueue;
     }
 
     public String getId(){
@@ -74,19 +81,33 @@ public class Queue implements Serializable {
     public int getEstimatedTime(){
         return this.estimatedTime;
     }
-    /*
-    public int getEstimatedTimeInMS(){
-        return this.estimatedTime*1000;
-    }
-    public int getTimeForNextTrainInMS(){
-        return this.timeForNextTrain*1000;
-    }
-    */
-    public void modifyTimeForNextTrain(int rate){
-        this.timeForNextTrain -= rate;
-    }
+
+    public Vector<String> getClientsInQueue(){ return this.clientsInQueue; }
+
+    public void modifyTimeForNextTrain(int rate){ this.timeForNextTrain -= rate; }
     public void resetTimeForNextTrain(){
-        this.timeForNextTrain = estimatedTime;
+        this.timeForNextTrain = estimatedTime + waitTimeinMS();
+    }
+    public int waitTimeinMS(){
+        double timeToBoard = clientsInQueue.size() * 1.5;
+        double timeToDismount = capacity * 1.5;
+
+        return (int)(timeToBoard+timeToDismount)*1000;
+    }
+    public Vector<String> takeClientsFromQueue(){
+        if(clientsInQueue.size() < maxCapacity){
+            //remove all elements from vector
+            clientsInQueue = new Vector<String>();
+        }
+        else{
+            //remove maxCapacity elements from vector
+            Vector<String> auxVector = new Vector<String>();
+            for(int i = maxCapacity; i < clientsInQueue.size(); i++){
+                auxVector.add(clientsInQueue.get(i));
+            }
+            clientsInQueue = auxVector;
+        }
+        return clientsInQueue;
     }
 
     public int getTimeForNextTrain(){

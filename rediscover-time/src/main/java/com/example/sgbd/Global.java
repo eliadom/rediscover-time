@@ -28,11 +28,18 @@ public class Global {
 //        Queue queue2 = new Queue("Queue4", "adeu");
 //        queueService.addQueue(queue2);
 
+        Vector<String> rvClients = new Vector<String>();
+        Vector<String> norClients = new Vector<String>();
+        Vector<String> tortClients = new Vector<String>();
+        Vector<String> gusClients = new Vector<String>();
+        Vector<String> marClients = new Vector<String>();
+
         queueService.removeAllEntries();
-        Queue ratonVacilon = new Queue("Ratón Vacilón",12,2, 50);
-        Queue noria = new Queue("Noria",10,5,30);
-        Queue tortugasNinja = new Queue("Tortugas Ninja",11,6,15);
-        Queue gusanoLoco = new Queue("Gusano Loco",20,10,40);
+        Queue ratonVacilon = new Queue("Ratón Vacilón",15000,5000,50,10,rvClients);
+        Queue noria = new Queue("Noria",10000,5000,30, 15, norClients);
+        Queue tortugasNinja = new Queue("Tortugas Ninja",10000,10000,15, 5, tortClients);
+        Queue gusanoLoco = new Queue("Gusano Loco",20000,15000,40, 20, gusClients);
+        Queue marioLand = new Queue("Mario Land",30000,20000,60, 40, marClients);
 
         queueService.addQueue(ratonVacilon);
         queueService.addQueue(noria);
