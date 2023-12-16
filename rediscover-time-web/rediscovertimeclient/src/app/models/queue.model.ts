@@ -6,6 +6,7 @@ export class QueueModel {
 
   capacity: number = 0;
 
+  // clientsInQueue : [] = [];
 
 
   constructor(){}

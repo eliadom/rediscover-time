@@ -14,19 +14,21 @@ public class ClientService {
     @Autowired
     ClientRepository clientRepository;
 
+
+    @Autowired
+    QueueService queueService;
+
     @Transactional
     public Client addClientQueue(String clientName, Queue queueof){
         String queue_id = queueof.getId();
 //        Optional<Client> potserExisteix = clientRepository.findClientByQueue_IdAndName(queue.getId(), clientName);
         boolean potserExisteix = clientRepository.existsById(clientName);
         if (potserExisteix){
-//            throw new ServiceException(String.format("Ja estàs a una cua"));
             return null;
         }
         Client client = new Client();
-        client.setQueueof(queueof);
         client.setId(clientName);
-        return clientRepository.save(client);
+        return client;
     }
 
 
@@ -40,9 +42,23 @@ public class ClientService {
         }
     }
 
+    @Transactional
     public void removeAllEntries(){
         clientRepository.deleteAll();
     }
+
+    @Transactional
+    public void removeClient(Client c){
+        clientRepository.delete(c);
+    }
+
+    @Transactional
+    public void removeClients(List<Client> clientList){
+        clientRepository.deleteAll(clientList);
+
+    }
+
+
 
 
 

@@ -3,8 +3,9 @@
   <div class="nomAtraccioDetalls">
     <div class="nomAtraccio">{{queue.id}}</div>
     <div class="descripcions">
-      <a *ngIf="!personal">Capacitat màxima: {{queue.capacity}}</a>
+      <a *ngIf="!personal">Capacitat màxima: {{queue.maxCapacity}}</a>
       <a> Durada: {{queue.estimatedTime/1000}}s</a>
+      <a> Gent a la cua: {{queue.capacity}}</a>
       <div class="textRemaining" [ngStyle]="{'color' : ((queue.timeForNextTrain/1000)<10) ? 'red' : 'black' }" >
         Propera sortida: {{((queue.timeForNextTrain/1000) === 1) ? 'Immediata' : (queue.timeForNextTrain/1000)+'s'}}
       </div>

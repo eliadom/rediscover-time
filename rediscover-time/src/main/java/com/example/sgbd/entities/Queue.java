@@ -1,13 +1,16 @@
 package com.example.sgbd.entities;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.redis.core.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.io.*;
 import java.lang.*;
@@ -25,6 +28,7 @@ public class Queue implements Serializable {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private int id;
+
     @Id
     private String id;
     // estimated waiting time in minutes
@@ -37,7 +41,10 @@ public class Queue implements Serializable {
     //maximum people on ride
     private int maxCapacity;
     //people in queue
-    private Vector<Client> clientsInQueue;
+
+    @OneToMany(mappedBy = "queueof", cascade = {CascadeType.ALL})
+    @JsonIgnoreProperties("queueof")
+    private List<Client> clientsInQueue;
 
     // should come before any other method.
     // @Cacheable("attributetoreturn")
@@ -61,76 +68,108 @@ public class Queue implements Serializable {
     // @CachePut(value="addresses")
     // public String getAddress(Customer customer) {...}
 
-    public Queue(){
+    public Queue() {
 
     }
 
-    public Queue(String name, int estimatedTime, int timeForNextTrain, int maxCapacity, int capacity, Vector<Client> clientsInQueue){
+    public Queue(String name, int estimatedTime, int timeForNextTrain, int maxCapacity, int capacity, List<Client> clientsInQueue) {
         this.id = name;
         this.estimatedTime = estimatedTime;
         this.timeForNextTrain = timeForNextTrain;
         this.maxCapacity = maxCapacity;
         this.capacity = capacity;
-        this.clientsInQueue = clientsInQueue;
+        this.clientsInQueue = new ArrayList<>();
+        if (clientsInQueue != null)
+            this.clientsInQueue.addAll(clientsInQueue);
     }
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 
 
-    public int getEstimatedTime(){
+    public int getEstimatedTime() {
         return this.estimatedTime;
     }
 
-    public Vector<Client> getClientsInQueue(){ return this.clientsInQueue; }
+    public List<Client> getClientsInQueue() {
+        return this.clientsInQueue;
+    }
 
-    public void addClientToQueue(Client cli){ clientsInQueue.add(cli); }
+    public void setClientsInQueue(Client cli) {
+        this.clientsInQueue.add(cli);
+    }
 
-    public void modifyTimeForNextTrain(int rate){ this.timeForNextTrain -= rate; }
-    public void resetTimeForNextTrain(){
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void modifyTimeForNextTrain(int rate) {
+        this.timeForNextTrain -= rate;
+    }
+
+    public int resetTimeForNextTrain() {
         this.timeForNextTrain = estimatedTime + waitTimeinMS();
-    }
-    public int waitTimeinMS(){
-        double timeToBoard = clientsInQueue.size() * 1.5;
-        double timeToDismount = capacity * 1.5;
-
-        return (int)(timeToBoard+timeToDismount)*1000;
-    }
-
-    public Vector<Client> takeClientsFromQueue(){
-        if(clientsInQueue.size() < maxCapacity){
-            //remove all elements from vector
-            clientsInQueue = new Vector<Client>();
-        }
-        else{
-            //remove maxCapacity elements from vector
-            Vector<Client> auxVector = new Vector<Client>();
-            for(int i = maxCapacity; i < clientsInQueue.size(); i++){
-                auxVector.add(clientsInQueue.get(i));
-            }
-            clientsInQueue = auxVector;
-        }
-        return clientsInQueue;
-    }
-
-    public int getTimeForNextTrain(){
         return this.timeForNextTrain;
     }
 
-    public int getCapacity(){ return this.capacity; }
+    public int waitTimeinMS() {
+        int mida = (clientsInQueue == null) ? 0 : clientsInQueue.size();
+        double timeToBoard = mida * 1.5;
+        double timeToDismount = capacity * 1.5;
 
-    public void addClient(){ this.capacity++; }
+        return (int) (timeToBoard + timeToDismount) * 1000;
+    }
+
+//    public Vector<Client> takeClientsFromQueue(){
+//        // numMax sera el numero mes petit entre aquests dos.
+//        Vector<Client> aEliminar = new Vector<Client>();
+//        int numMax = Math.min(clientsInQueue.size(),this.maxCapacity);
+//        for (int i = 0; i < numMax; i++){
+//            this.capacity--;
+//            aEliminar.add(clientsInQueue.get(0));
+//            clientsInQueue.remove(0);
+//
+//        }
+//
+//        if(clientsInQueue.size() < maxCapacity){
+//            //remove all elements from vector
+//            clientsInQueue.clear();
+//        }
+//        else{
+//            //remove maxCapacity elements from vector
+//            Vector<Client> auxVector = new Vector<Client>();
+//            for(int i = maxCapacity; i < clientsInQueue.size(); i++){
+//                auxVector.add(clientsInQueue.get(i));
+//            }
+//            clientsInQueue.addAll(auxVector);
+//        }
+//        return aEliminar;
+//    }
+
+    public int getTimeForNextTrain() {
+        return this.timeForNextTrain;
+    }
+
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    public void addClient() {
+        this.capacity++;
+    }
 
     public int getMaxCapacity() {
         return maxCapacity;
     }
 
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
 }
 
-class queueComp implements Comparator<Queue>{
-    public int compare(Queue a, Queue b)
-    {
+class queueComp implements Comparator<Queue> {
+    public int compare(Queue a, Queue b) {
         return a.getTimeForNextTrain() - b.getTimeForNextTrain();
     }
 }

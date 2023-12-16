@@ -40,6 +40,7 @@ export class MainMenuComponent implements OnInit {
         this.allQueues = queues;
         this.allQueues.sort((a,b) => a.timeForNextTrain < b.timeForNextTrain ? -1 : 1);
 
+        console.log(this.allQueues)
 
       })
     }, 1000);
