@@ -10,6 +10,7 @@
   <div class="queuePrompt">
     Acosta la teva targeta al lector
   </div>
+  <img src="assets/scan.gif" class="escanerClasse">
 
   <div class="inputNom">
     <div class="inputNomPetit">
@@ -17,6 +18,7 @@
     </div>
     <form class="example-form" [formGroup]="formGroup" style="margin: 10px 0; width: 100%">
       <mat-form-field class="inputElement"
+                      appearance="outline"
                       >
         <mat-label>Codi tarjeta</mat-label>
         <input matInput formControlName="cardid">
@@ -26,8 +28,7 @@
   </div>
 
   <div class="botons">
-    valor: {{test}}
-    <button mat-flat-button style="width: 100%" (click)="apuntaCua()">
+    <button mat-flat-button style="width: 30%" (click)="apuntaCua()">
       Fer cua
     </button>
   </div>
