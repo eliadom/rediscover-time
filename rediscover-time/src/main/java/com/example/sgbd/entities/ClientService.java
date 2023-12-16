@@ -40,6 +40,10 @@ public class ClientService {
         }
     }
 
+    public void removeAllEntries(){
+        clientRepository.deleteAll();
+    }
+
 
 
 }

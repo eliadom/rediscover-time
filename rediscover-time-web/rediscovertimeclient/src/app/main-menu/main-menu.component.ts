@@ -19,19 +19,30 @@ export class MainMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loading--;
-    this.queueService.getAllQueues().subscribe((queues : QueueModel[]) => {
-      console.log("queues:")
-      console.log(queues)
-      // TODO: ordenar cues segons temps espera actual
+    // this.loading--;
+    // this.queueService.getAllQueues().subscribe((queues : QueueModel[]) => {
+    //   console.log("queues:")
+    //   console.log(queues)
+    //   // TODO: ordenar cues segons temps espera actual
+    //
+    //   this.allQueues = queues;
+    //
+    //   console.log("this.allQueues:")
+    //   console.log(this.allQueues)
+    //
+    //   this.loading++;
+    // })
 
-      this.allQueues = queues;
+    setInterval(() => {
+      console.log("This message will display every second");
+      this.queueService.getAllQueues().subscribe((queues : QueueModel[]) => {
 
-      console.log("this.allQueues:")
-      console.log(this.allQueues)
+        this.allQueues = queues;
+        this.allQueues.sort((a,b) => a.timeForNextTrain < b.timeForNextTrain ? -1 : 1);
 
-      this.loading++;
-    })
+
+      })
+    }, 1000);
 
 
   }

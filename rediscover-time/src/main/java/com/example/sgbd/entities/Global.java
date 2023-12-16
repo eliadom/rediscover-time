@@ -13,6 +13,9 @@ public class Global {
     @Autowired
     private QueueService queueService;
 
+    @Autowired
+    private ClientService clientService;
+
     private List<Queue> activeQueues = new ArrayList<>();
 
 
@@ -30,6 +33,7 @@ public class Global {
 //        queueService.addQueue(queue2);
 
         queueService.removeAllEntries();
+        clientService.removeAllEntries();
 
         Vector<Client> rvClients = new Vector<Client>();
 
@@ -86,6 +90,7 @@ public class Global {
                     }
                     else {
                         q.modifyTimeForNextTrain(rate);
+                        queueService.updateQueueStatus(q);
 
                     }
                     updateQueues.add(q);
