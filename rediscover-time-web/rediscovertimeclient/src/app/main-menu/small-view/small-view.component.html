@@ -3,9 +3,11 @@
   <div class="nomAtraccioDetalls">
     <div class="nomAtraccio">{{queue.id}}</div>
     <div class="descripcions">
-      <a *ngIf="!personal">Temps pel següent: {{queue.timeForNextTrain}}</a>
       <a *ngIf="!personal">Capacitat màxima: {{queue.capacity}}</a>
-      <a>{{ personal ? 'Serà el teu torn en:' : 'Espera estimada:' }} {{queue.estimatedTime}}</a>
+      <a> Durada: {{queue.estimatedTime/1000}}s</a>
+      <div class="textRemaining" [ngStyle]="{'color' : ((queue.timeForNextTrain/1000)<10) ? 'red' : 'black' }" >
+        Propera sortida: {{((queue.timeForNextTrain/1000) === 1) ? 'Immediata' : (queue.timeForNextTrain/1000)+'s'}}
+      </div>
       <button mat-flat-button (click)="apunta()">Apunta'm</button>
     </div>
   </div>

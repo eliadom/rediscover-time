@@ -41,4 +41,8 @@ public class QueueService {
         List<Queue> queueList = queueRepository.findAll();
         return queueList;
     }
+
+    public void updateQueueStatus(Queue queue){
+        queueRepository.save(queue);
+    }
 }

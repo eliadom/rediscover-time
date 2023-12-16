@@ -30,6 +30,7 @@ export class SmallViewComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   apunta() {
