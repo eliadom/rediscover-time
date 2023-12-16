@@ -1,5 +1,6 @@
 package com.example.sgbd;
 
+import com.example.sgbd.entities.Client;
 import com.example.sgbd.entities.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,11 @@ public class Global {
 //        Queue queue2 = new Queue("Queue4", "adeu");
 //        queueService.addQueue(queue2);
 
-        Vector<String> rvClients = new Vector<String>();
-        Vector<String> norClients = new Vector<String>();
-        Vector<String> tortClients = new Vector<String>();
-        Vector<String> gusClients = new Vector<String>();
-        Vector<String> marClients = new Vector<String>();
+        Vector<Client> rvClients = new Vector<Client>();
+        Vector<Client> norClients = new Vector<Client>();
+        Vector<Client> tortClients = new Vector<Client>();
+        Vector<Client> gusClients = new Vector<Client>();
+        Vector<Client> marClients = new Vector<Client>();
 
         queueService.removeAllEntries();
         Queue ratonVacilon = new Queue("Ratón Vacilón",15000,5000,50,10,rvClients);
@@ -102,7 +103,7 @@ public class Global {
 
     //Adds user to queue X and returns its wait time
     public int addToQueue(Queue add){
-        add.addCapacity();
+        //add.addCapacity();
         int actualCapacity = add.getCapacity();
         /*Coaster co = getCoasterForQueue(add);
         Double cap = (double) actualCapacity;

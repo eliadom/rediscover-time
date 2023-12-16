@@ -30,6 +30,8 @@ public class Client implements Serializable {
 
     private int positionInQueue;
 
+    private int estimatedTimeinQueue;
+
     @ManyToOne
     private Queue queueof;
 
@@ -59,6 +61,14 @@ public class Client implements Serializable {
 
     public void setPositionInQueue(int num){
         this.positionInQueue = num;
+    }
+
+    public int getEstimatedTimeinQueue() {
+        return estimatedTimeinQueue;
+    }
+
+    public void setEstimatedTimeinQueue(int estimatedTimeinQueue) {
+        this.estimatedTimeinQueue = estimatedTimeinQueue;
     }
 
 
