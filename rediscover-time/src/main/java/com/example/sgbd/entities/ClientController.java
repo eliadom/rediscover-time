@@ -28,7 +28,26 @@ public class ClientController {
     private Client apunta(@RequestBody Client client){
         // aconseguim l'atraccio a la qual ens apuntem
         Queue queue = queueService.getQueueByName(client.getQueueof().getId());
+        queue.addClient();
+        Double queueSize = (double)queue.getCapacity();
+        Double coasterCap = (double)queue.getMaxCapacity();
+        Double waitingCicles = Math.floor(queueSize/coasterCap);
+        int timeinqueue = (int) (waitingCicles*queue.waitTimeinMS());
+        client.setEstimatedTimeinQueue(timeinqueue);
+        //queue.addClientToQueue(client);
         return clientService.addClientQueue(client.getId(), queue);
+    }
+
+    @PostMapping("/addToQueue")
+    public int addToQueue(Queue add, Client cli){
+        add.addClient();
+        Double queueSize = (double)add.getCapacity();
+        Double coasterCap = (double)add.getMaxCapacity();
+        Double waitingCicles = Math.floor(queueSize/coasterCap);
+        int timeinqueue = (int) (waitingCicles*add.waitTimeinMS());
+        cli.setEstimatedTimeinQueue(timeinqueue);
+        add.addClientToQueue(cli);
+        return 0;
     }
 
 //    @GetMapping(path="/all")

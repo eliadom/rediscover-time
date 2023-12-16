@@ -33,10 +33,11 @@ public class Queue implements Serializable {
 
     //people on ride
     private int capacity;
+
     //maximum people on ride
     private int maxCapacity;
     //people in queue
-    private Vector<String> clientsInQueue;
+    private Vector<Client> clientsInQueue;
 
     // should come before any other method.
     // @Cacheable("attributetoreturn")
@@ -64,7 +65,7 @@ public class Queue implements Serializable {
 
     }
 
-    public Queue(String name, int estimatedTime, int timeForNextTrain, int maxCapacity, int capacity, Vector<String> clientsInQueue){
+    public Queue(String name, int estimatedTime, int timeForNextTrain, int maxCapacity, int capacity, Vector<Client> clientsInQueue){
         this.id = name;
         this.estimatedTime = estimatedTime;
         this.timeForNextTrain = timeForNextTrain;
@@ -82,7 +83,9 @@ public class Queue implements Serializable {
         return this.estimatedTime;
     }
 
-    public Vector<String> getClientsInQueue(){ return this.clientsInQueue; }
+    public Vector<Client> getClientsInQueue(){ return this.clientsInQueue; }
+
+    public void addClientToQueue(Client cli){ clientsInQueue.add(cli); }
 
     public void modifyTimeForNextTrain(int rate){ this.timeForNextTrain -= rate; }
     public void resetTimeForNextTrain(){
@@ -94,14 +97,15 @@ public class Queue implements Serializable {
 
         return (int)(timeToBoard+timeToDismount)*1000;
     }
-    public Vector<String> takeClientsFromQueue(){
+
+    public Vector<Client> takeClientsFromQueue(){
         if(clientsInQueue.size() < maxCapacity){
             //remove all elements from vector
-            clientsInQueue = new Vector<String>();
+            clientsInQueue = new Vector<Client>();
         }
         else{
             //remove maxCapacity elements from vector
-            Vector<String> auxVector = new Vector<String>();
+            Vector<Client> auxVector = new Vector<Client>();
             for(int i = maxCapacity; i < clientsInQueue.size(); i++){
                 auxVector.add(clientsInQueue.get(i));
             }
@@ -116,7 +120,12 @@ public class Queue implements Serializable {
 
     public int getCapacity(){ return this.capacity; }
 
-    public void addCapacity(){ this.capacity++; }
+    public void addClient(){ this.capacity++; }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
 }
 
 class queueComp implements Comparator<Queue>{
