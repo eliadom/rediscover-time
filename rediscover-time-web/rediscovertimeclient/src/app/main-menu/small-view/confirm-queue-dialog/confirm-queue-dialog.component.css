@@ -6,16 +6,23 @@
   font-size: 20px !important;
   gap: 16px !important;
   line-height: 18px;
+  color: grey;
 }
 
 .nomAtraccio{
   font-size: 40px;
   line-height: 70px;
   font-weight: 700;
+  text-align: center;
+  color: black
 }
 *{
   font-family: Tahoma, sans-serif;
   font-size: 20px;
+}
+
+.queuePrompt{
+  text-align: center;
 }
 
 .inputNomPetit{
@@ -30,4 +37,16 @@
 
 .inputElement{
   width: 100% !important;
+}
+
+.escanerClasse{
+  opacity: 0.8;
+  width: calc(80% - 20px);
+  padding:10px;
+}
+
+.botons{
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
