@@ -40,6 +40,7 @@ public class ClientController {
         client = clientService.addClientQueue(client.getId(), queue);
         queueService.removeQueue(queue);
         queue = queueService.addClientToQueue(client, queue);
+
         queueService.addQueue(queue);
 //        queueService.updateQueueStatus(queue);
         return client;
@@ -52,7 +53,7 @@ public class ClientController {
 
     @GetMapping("/{name}")
     private Client getClient(@PathVariable("name") String name){
-        return clientService.getQueueByName(name);
+        return queueService.findClientinQueue(name);
     }
 
 }

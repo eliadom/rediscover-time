@@ -142,6 +142,25 @@ public class Queue implements Serializable {
         return this.currentWaitTime;
     }
 
+    public int timeTillNextDeparture(){
+        int mida;
+        if(clientsInQueue.size() > maxCapacity) mida = maxCapacity;
+        else mida = clientsInQueue.size();
+        double timeToBoard = mida * 1.5;
+        double timeToDismount = capacity * 1.5;
+
+        return (int) (timeToBoard + timeToDismount) * 1000;
+    }
+
+    public int currentWaitTime(){
+        int mida = (clientsInQueue == null) ? 0 : clientsInQueue.size();
+        double timeToBoard = mida * 1.5;
+        double timeToDismount = capacity * 1.5;
+
+        return (int) (timeToBoard + timeToDismount) * 1000;
+    }
+
+
 //    public Vector<Client> takeClientsFromQueue(){
 //        // numMax sera el numero mes petit entre aquests dos.
 //        Vector<Client> aEliminar = new Vector<Client>();

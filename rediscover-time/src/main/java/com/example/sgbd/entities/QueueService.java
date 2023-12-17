@@ -64,7 +64,7 @@ public class QueueService {
         c.setPositionInQueue(clientList.size()+1);
         clientList.add(c);
 
-        q.setTimeTillNextDeparture();
+        //q.setTimeTillNextDeparture();
         q.setCurrentWaitTime();
         Queue newq = new Queue(q.getId(),q.getEstimatedTime(), q.getTimeForNextDeparture(), q.getMaxCapacity(),clientList.size(),clientList, q.getCurrentWaitTime());
 
@@ -95,5 +95,24 @@ public class QueueService {
         q.setTimeTillNextDeparture();
         q.setCurrentWaitTime();
         return q;
+    }
+
+    @Transactional
+    public Client findClientinQueue(String id){
+        List<Queue> queueList = queueRepository.findAll();
+        boolean clientFound = false;
+        int i = 0;
+        int j = 0;
+        while(!clientFound && i < queueList.size()){
+            Queue aux = queueList.get(i);
+            if(aux.getClientsInQueue() != null){
+                while(!clientFound && j < aux.getClientsInQueue().size()){
+                    if(id.equals(aux.getClientsInQueue().get(j).getId())) clientFound = true;
+                    else j++;
+                }
+            }
+            if(!clientFound) i++;
+        }
+        return queueList.get(i).getClientsInQueue().get(j);
     }
 }
