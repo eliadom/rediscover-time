@@ -13,10 +13,16 @@
   </form>
   <button mat-flat-button (click)="buscaLaMevaCua()">Busca</button>
   <div *ngIf="trobat">
-    t'has apuntat a: {{laMevaCua.queueof.id}}
+    <app-small-view-client
+    [client]="elMeuClient"
+    [queue]="laMevaCua">
+    </app-small-view-client>
   </div>
   <div *ngIf="loading !== 0">
     Buscant...
+  </div>
+  <div *ngIf="loading === 0 && (!trobat) && tarja">
+    No estàs apuntat a cap cua
   </div>
 
 

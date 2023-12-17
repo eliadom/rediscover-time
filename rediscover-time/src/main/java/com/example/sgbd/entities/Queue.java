@@ -25,13 +25,9 @@ import java.util.*;
 @RedisHash("Queue")
 public class Queue implements Serializable {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int id;
-
     @Id
     private String id;
-    // estimated waiting time in minutes
+
     private int estimatedTime;
     private int timeForNextDeparture;
 
