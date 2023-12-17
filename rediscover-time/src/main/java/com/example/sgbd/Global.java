@@ -1,6 +1,7 @@
 package com.example.sgbd;
 
 import com.example.sgbd.entities.Client;
+import com.example.sgbd.entities.ClientService;
 import com.example.sgbd.entities.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ public class Global {
     @Autowired
     private QueueService queueService;
 
+    @Autowired
+    private ClientService clientService;
 
 
     @PostConstruct
@@ -35,7 +38,6 @@ public class Global {
         Vector<Client> gusClients = new Vector<Client>();
         Vector<Client> marClients = new Vector<Client>();
 
-        queueService.removeAllEntries();
         Queue ratonVacilon = new Queue("Ratón Vacilón",15000,5000,50,10,rvClients);
         Queue noria = new Queue("Noria",10000,5000,30, 15, norClients);
         Queue tortugasNinja = new Queue("Tortugas Ninja",10000,10000,15, 5, tortClients);
@@ -46,6 +48,7 @@ public class Global {
         queueService.addQueue(noria);
         queueService.addQueue(tortugasNinja);
         queueService.addQueue(gusanoLoco);
+        queueService.addQueue(marioLand);
 
         List<Queue> queueManagement = queueService.getAllQueues();
         Map<Queue,Integer> queueTimes = new HashMap<>();

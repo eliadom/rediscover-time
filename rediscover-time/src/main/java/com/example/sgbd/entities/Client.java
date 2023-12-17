@@ -1,5 +1,6 @@
 package com.example.sgbd.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -7,10 +8,8 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 
@@ -32,7 +31,8 @@ public class Client implements Serializable {
 
     private int estimatedTimeinQueue;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("clientsInQueue")
     private Queue queueof;
 
     public Client() {
@@ -61,6 +61,10 @@ public class Client implements Serializable {
 
     public void setPositionInQueue(int num){
         this.positionInQueue = num;
+    }
+
+    public int getPositionInQueue(){
+        return this.positionInQueue;
     }
 
     public int getEstimatedTimeinQueue() {

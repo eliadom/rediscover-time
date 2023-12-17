@@ -34,6 +34,8 @@ export class SmallViewComponent implements OnInit {
   }
 
   apunta() {
+
+
     // this.queueService.apunta().subscribe()
     const dialogRef = this.dialog.open(ConfirmQueueDialogComponent, {
       data: {queue: this.queue},
