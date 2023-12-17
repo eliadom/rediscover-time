@@ -1,10 +1,14 @@
 package com.example.sgbd.entities;
 
+import org.apache.tomcat.jni.Time;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
 import java.util.*;
 
 @Service
@@ -14,8 +18,8 @@ public class QueueService {
     QueueRepository queueRepository;
 
     @Transactional
-    public void addQueue(Queue queue){
-        queueRepository.save(queue);
+    public Queue addQueue(Queue queue){
+        return queueRepository.save(queue);
     }
 
 
@@ -58,15 +62,39 @@ public class QueueService {
     @Transactional
     public Queue addClientToQueue(Client c, Queue q){
 
+        removeQueue(q);
+
         List<Client> clientList = q.getClientsInQueue();
         if (clientList == null)
             clientList = new ArrayList<>();
+        int currentWaitTime = q.getCurrentWaitTime();
+
+
+        int hour = LocalDateTime.now().getHour();
+        int minute = LocalDateTime.now().getMinute();
+        minute += (currentWaitTime/60000);
+        if (minute >= 60){
+            int addHours = minute/60;
+            minute %= 60;
+            hour += addHours;
+        }
+
+
         c.setPositionInQueue(clientList.size()+1);
+
+        String minutesString = Integer.toString(minute);
+        if (minute<10){
+            minutesString = "0" + minutesString;
+        }
+        c.setDate(Integer.toString(hour)+":"+minutesString);
+
         clientList.add(c);
 
-        q.setTimeTillNextDeparture();
+
         q.setCurrentWaitTime();
         Queue newq = new Queue(q.getId(),q.getEstimatedTime(), q.getTimeForNextDeparture(), q.getMaxCapacity(),clientList.size(),clientList, q.getCurrentWaitTime());
+
+        newq = addQueue(newq);
 
         return newq;
 
@@ -81,9 +109,10 @@ public class QueueService {
         if (clientsSize != 0) {
             int numMax = Math.min(clientsSize, q.getMaxCapacity());
             for (int i = 0; i < numMax; i++) {
-                capacity--;
+//                capacity--;
                 clientsInQueue.remove(0);
             }
+            capacity=clientsInQueue.size();
 
             q.setCapacity(capacity);
 
@@ -95,5 +124,32 @@ public class QueueService {
         q.setTimeTillNextDeparture();
         q.setCurrentWaitTime();
         return q;
+    }
+
+    public Client findClientinQueue(String id){
+        List<Queue> queueList = queueRepository.findAll();
+        boolean clientFound = false;
+        int i = 0;
+        int j = 0;
+        while(!clientFound && i < queueList.size()){
+            Queue aux = queueList.get(i);
+            j = 0;
+            if(aux.getClientsInQueue() != null){
+                while(!clientFound && j < aux.getClientsInQueue().size()){
+                    if(id.equals(aux.getClientsInQueue().get(j).getId())) clientFound = true;
+                    else j++;
+                }
+            }
+            if(!clientFound) i++;
+        }
+
+        if (!clientFound){
+            return null;
+        }
+
+        Client thisClient = queueList.get(i).getClientsInQueue().get(j);
+        Queue queue =  queueList.get(i);
+        thisClient.setQueueof(queue);
+        return thisClient;
     }
 }

@@ -14,17 +14,22 @@ export class CuaMenuComponent implements OnInit {
 
   allQueues: QueueModel[] = [];
 
-  laMevaCua : ClientModel;
-  trobat : boolean = false;
+  elMeuClient: ClientModel;
+  laMevaCua: QueueModel;
+  trobat: boolean = false;
   loading = 0;
 
-  idName : string;
+  tarja: string;
+  idName: string;
+
   constructor(
     private queueService: QueueService
   ) {
 
   }
-  formGroup : FormGroup;
+
+  formGroup: FormGroup;
+
   ngOnInit() {
 
     this.formGroup = new FormGroup({
@@ -32,17 +37,24 @@ export class CuaMenuComponent implements OnInit {
     });
   }
 
-  buscaLaMevaCua(){
+  buscaLaMevaCua() {
     // this.laMevaCua = null;
-    let tarja = this.formGroup.get('cardid')!.value;
-    this.loading--;
-    this.queueService.getClient(tarja).subscribe((queues : ClientModel) => {
-      console.log("me:")
-      this.trobat = true;
-      console.log(queues)
-      this.laMevaCua = queues;
+    this.tarja = this.formGroup.get('cardid')!.value;
+    if (this.tarja.length !== 0) {
+      this.loading--;
+      this.queueService.getClient(this.tarja).subscribe((queues: any) => {
+        if (queues === null) {
+          this.trobat = false;
+        } else {
+          console.log("me:")
+          this.trobat = true;
+          console.log(queues)
+          this.elMeuClient = queues;
+          this.laMevaCua = this.elMeuClient.queueof;
+        }
 
-      this.loading++;
-    })
+        this.loading++;
+      })
+    }
   }
 }

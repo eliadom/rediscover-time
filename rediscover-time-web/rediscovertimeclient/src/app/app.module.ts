@@ -18,6 +18,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {SmallViewClientComponent} from "./cua-menu/small-view-client/small-view-client.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MainMenuComponent,
     SmallViewComponent,
     CuaMenuComponent,
-    ConfirmQueueDialogComponent
+    ConfirmQueueDialogComponent,
+    SmallViewClientComponent
   ],
   imports: [
     BrowserModule,

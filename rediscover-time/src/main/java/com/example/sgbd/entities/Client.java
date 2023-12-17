@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisHash;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 @EnableCaching
@@ -30,6 +31,8 @@ public class Client implements Serializable {
     private int positionInQueue;
 
     private int estimatedTimeinQueue;
+
+    private String date;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("clientsInQueue")
@@ -63,6 +66,13 @@ public class Client implements Serializable {
         this.positionInQueue = num;
     }
 
+    public void setDate(String date){
+        this.date = date;
+    }
+
+    public String getDate(){
+        return this.date;
+    }
     public int getPositionInQueue(){
         return this.positionInQueue;
     }

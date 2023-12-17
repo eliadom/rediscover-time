@@ -1,0 +1,69 @@
+
+.contenidorAtraccio{
+  background: #e1e1e1;
+  margin: 8px;
+  overflow: hidden;
+  gap: 16px;
+  border-radius: 16px;
+  height: 230px;
+  opacity: 0.8;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+
+.contenidorAtraccio:hover{
+  opacity: 1;
+  transition-duration: 0.25s;
+  cursor: pointer;
+
+}
+
+
+.nomAtraccioDetalls{
+  padding: 16px;
+  min-width: 400px;
+}
+
+.imatgesAtraccions{
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1.0) 20%, transparent 100%);
+}
+
+.nomAtraccio{
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.descripcions{
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 8px;
+}
+
+a{
+  font-family: Tahoma, sans-serif;
+  font-size: 20px;
+}
+
+.explicacio{
+  max-width: 35%;
+}
+
+.textRemaining{
+  font-size: 20px;
+  font-family: Tahoma, sans-serif;
+
+}
+
+
+.loadingContainer{
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: auto;
+}

@@ -28,7 +28,6 @@ public class ClientController {
     @Transactional
     @PostMapping("/apunta")
     Client apunta(@RequestBody Client client){
-        // aconseguim l'atraccio a la qual ens apuntem
         Queue queue = queueService.getQueueByName(client.getQueueof().getId());
 
         Double queueSize = (double)queue.getCapacity();
@@ -36,12 +35,11 @@ public class ClientController {
         Double waitingCicles = Math.floor(queueSize/coasterCap);
         int timeinqueue = (int) (waitingCicles*queue.getCurrentWaitTime());
 
-        client.setEstimatedTimeinQueue(timeinqueue);
         client = clientService.addClientQueue(client.getId(), queue);
-        queueService.removeQueue(queue);
+
         queue = queueService.addClientToQueue(client, queue);
-        queueService.addQueue(queue);
-//        queueService.updateQueueStatus(queue);
+
+
         return client;
     }
 
@@ -52,7 +50,7 @@ public class ClientController {
 
     @GetMapping("/{name}")
     private Client getClient(@PathVariable("name") String name){
-        return clientService.getQueueByName(name);
+        return queueService.findClientinQueue(name);
     }
 
 }

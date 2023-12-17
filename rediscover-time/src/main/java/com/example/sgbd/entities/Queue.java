@@ -25,13 +25,9 @@ import java.util.*;
 @RedisHash("Queue")
 public class Queue implements Serializable {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int id;
-
     @Id
     private String id;
-    // estimated waiting time in minutes
+
     private int estimatedTime;
     private int timeForNextDeparture;
 
@@ -141,6 +137,25 @@ public class Queue implements Serializable {
     public int getCurrentWaitTime(){
         return this.currentWaitTime;
     }
+
+    public int timeTillNextDeparture(){
+        int mida;
+        if(clientsInQueue.size() > maxCapacity) mida = maxCapacity;
+        else mida = clientsInQueue.size();
+        double timeToBoard = mida * 1.5;
+        double timeToDismount = capacity * 1.5;
+
+        return (int) (timeToBoard + timeToDismount) * 1000;
+    }
+
+    public int currentWaitTime(){
+        int mida = (clientsInQueue == null) ? 0 : clientsInQueue.size();
+        double timeToBoard = mida * 1.5;
+        double timeToDismount = capacity * 1.5;
+
+        return (int) (timeToBoard + timeToDismount) * 1000;
+    }
+
 
 //    public Vector<Client> takeClientsFromQueue(){
 //        // numMax sera el numero mes petit entre aquests dos.
