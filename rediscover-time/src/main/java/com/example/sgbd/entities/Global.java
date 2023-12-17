@@ -52,11 +52,11 @@ public class Global {
         Vector<Client> marClients = new Vector<Client>();
 
 //        Queue ratonVacilon = new Queue("Ratón Vacilón",15000,5000,5,10,rvClients);
-        Queue ratonVacilon = new Queue("Ratón Vacilón", 15000, 5000, 1, rvClients.size(), rvClients);
-        Queue noria = new Queue("Noria", 10000, 5000, 30, norClients.size(), norClients);
-        Queue tortugasNinja = new Queue("Tortugas Ninja", 10000, 10000, 15, tortClients.size(), tortClients);
-        Queue gusanoLoco = new Queue("Gusano Loco", 20000, 15000, 40, gusClients.size(), gusClients);
-        Queue marioLand = new Queue("Mario Land", 30000, 20000, 60, marClients.size(), marClients);
+        Queue ratonVacilon = new Queue("Ratón Vacilón", 15000, 5000, 2, rvClients.size(), rvClients, 0);
+        Queue noria = new Queue("Noria", 10000, 5000, 3, norClients.size(), norClients, 0);
+        Queue tortugasNinja = new Queue("Tortugas Ninja", 10000, 10000, 1, tortClients.size(), tortClients, 0);
+        Queue gusanoLoco = new Queue("Gusano Loco", 20000, 15000, 2, gusClients.size(), gusClients, 0);
+        Queue marioLand = new Queue("Mario Land", 30000, 20000, 3, marClients.size(), marClients,0 );
 
         queueService.addQueue(ratonVacilon);
         activeQueues.add(ratonVacilon);
@@ -73,7 +73,7 @@ public class Global {
         Collections.sort(allQueues, new queueComp());
 
         for (int i = 0; i < allQueues.size(); i++) {
-            System.out.println("Ride " + i + ": " + allQueues.get(i).getId() + " " + allQueues.get(i).getTimeForNextTrain() / 1000);
+            System.out.println("Ride " + i + ": " + allQueues.get(i).getId() + " " + allQueues.get(i).getTimeForNextDeparture() / 1000);
         }
 
         System.out.println("Starting Execution at: " + java.time.LocalTime.now());
@@ -89,7 +89,7 @@ public class Global {
 
                 for (Queue q : currentQueues) {
 
-                    if (q.getTimeForNextTrain() - rate <= 0) {
+                    if (q.getTimeForNextDeparture() - rate <= 0) {
                         queueService.removeClientsFrom(q);
                         q = queueService.updateQueueStatus(q);
 
@@ -106,7 +106,7 @@ public class Global {
                 Collections.sort(updateQueues, new queueComp());
 
                 for (int i = 0; i < currentQueues.size(); i++) {
-                    System.out.println("Ride " + i + ": " + currentQueues.get(i).getId() + " " + currentQueues.get(i).getTimeForNextTrain() / 1000);
+                    System.out.println("Ride " + i + ": " + currentQueues.get(i).getId() + " " + currentQueues.get(i).getTimeForNextDeparture() / 1000);
                 }
 
             }

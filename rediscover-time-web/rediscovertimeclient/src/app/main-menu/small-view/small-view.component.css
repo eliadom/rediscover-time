@@ -56,3 +56,14 @@ a{
   font-family: Tahoma, sans-serif;
 
 }
+
+
+.loadingContainer{
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: auto;
+}

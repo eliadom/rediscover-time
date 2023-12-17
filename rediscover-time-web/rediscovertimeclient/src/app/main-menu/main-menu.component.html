@@ -3,14 +3,22 @@
     <div class="titolLlista">
       Totes les atraccions
     </div>
-    <div class="atraccionsLoopContainer">
-      <app-small-view *ngFor="let queue of allQueues"
-                      [queue]="queue"
-      >
-
-      </app-small-view>
+    <div class="atraccionsLoopContainer" *ngIf="allQueues">
+      <ng-container *ngFor="let thisQueue of allQueues">
+        <app-small-view
+          [queue]="thisQueue"
+          *ngIf="thisQueue"
+        >
+        </app-small-view>
+        <div class="contenidorAtraccio" *ngIf="!thisQueue">
+          <div class="loadingContainer">
+            Calculant...
+            <mat-progress-spinner class="loadingContainer"
+                                  mode="indeterminate"></mat-progress-spinner>
+          </div>
+        </div>
+      </ng-container>
     </div>
-
 
   </div>
 </ng-container>

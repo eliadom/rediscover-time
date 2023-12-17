@@ -50,7 +50,8 @@ public class QueueService {
     @Transactional
     public Queue updateQueueStatus(Queue q){
         queueRepository.delete(q);
-        q = new Queue(q.getId(),q.getEstimatedTime(),q.getTimeForNextTrain(),q.getMaxCapacity(),q.getCapacity(),q.getClientsInQueue());
+        int waitTime = q.setCurrentWaitTime();
+        q = new Queue(q.getId(),q.getEstimatedTime(),q.getTimeForNextDeparture(),q.getMaxCapacity(),q.getCapacity(),q.getClientsInQueue(), waitTime);
         return queueRepository.save(q);
     }
 
@@ -63,8 +64,9 @@ public class QueueService {
         c.setPositionInQueue(clientList.size()+1);
         clientList.add(c);
 
-        int newTime =  q.resetTimeForNextTrain();
-        Queue newq = new Queue(q.getId(),q.getEstimatedTime(),newTime,q.getMaxCapacity(),clientList.size(),clientList);
+        q.setTimeTillNextDeparture();
+        q.setCurrentWaitTime();
+        Queue newq = new Queue(q.getId(),q.getEstimatedTime(), q.getTimeForNextDeparture(), q.getMaxCapacity(),clientList.size(),clientList, q.getCurrentWaitTime());
 
         return newq;
 
@@ -90,7 +92,8 @@ public class QueueService {
                 cli.setPositionInQueue(cli.getPositionInQueue() - 1);
             }
         }
-        q.resetTimeForNextTrain();
+        q.setTimeTillNextDeparture();
+        q.setCurrentWaitTime();
         return q;
     }
 }

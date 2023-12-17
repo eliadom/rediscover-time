@@ -10,6 +10,7 @@ import {QueueService} from "../queue-service/queue-service.service";
 export class MainMenuComponent implements OnInit {
 
   allQueues: QueueModel[] = [];
+
   loading = 0;
 
   constructor(
@@ -37,8 +38,9 @@ export class MainMenuComponent implements OnInit {
       console.log("This message will display every second");
       this.queueService.getAllQueues().subscribe((queues : QueueModel[]) => {
 
+
         this.allQueues = queues;
-        this.allQueues.sort((a,b) => a.timeForNextTrain < b.timeForNextTrain ? -1 : 1);
+        this.allQueues.sort((a,b) => a.currentWaitTime < b.currentWaitTime ? -1 : 1);
 
         console.log(this.allQueues)
 

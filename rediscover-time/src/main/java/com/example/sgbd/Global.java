@@ -38,11 +38,11 @@ public class Global {
         Vector<Client> gusClients = new Vector<Client>();
         Vector<Client> marClients = new Vector<Client>();
 
-        Queue ratonVacilon = new Queue("Ratón Vacilón",15000,5000,50,10,rvClients);
-        Queue noria = new Queue("Noria",10000,5000,30, 15, norClients);
-        Queue tortugasNinja = new Queue("Tortugas Ninja",10000,10000,15, 5, tortClients);
-        Queue gusanoLoco = new Queue("Gusano Loco",20000,15000,40, 20, gusClients);
-        Queue marioLand = new Queue("Mario Land",30000,20000,60, 40, marClients);
+        Queue ratonVacilon = new Queue("Ratón Vacilón",15000,5000,50,10,rvClients, 0);
+        Queue noria = new Queue("Noria",10000,5000,30, 15, norClients, 0);
+        Queue tortugasNinja = new Queue("Tortugas Ninja",10000,10000,15, 5, tortClients, 0);
+        Queue gusanoLoco = new Queue("Gusano Loco",20000,15000,40, 20, gusClients, 0);
+        Queue marioLand = new Queue("Mario Land",30000,20000,60, 40, marClients, 0);
 
         queueService.addQueue(ratonVacilon);
         queueService.addQueue(noria);
@@ -54,7 +54,7 @@ public class Global {
         Map<Queue,Integer> queueTimes = new HashMap<>();
         int maxTime = 0;
         for (Queue element : queueManagement) {
-            int time = element.getEstimatedTime() + element.getTimeForNextTrain() + 10; /*Baremo a tenir en compte per descarregar trens*/
+            int time = element.getEstimatedTime() + element.getTimeForNextDeparture() + 10; /*Baremo a tenir en compte per descarregar trens*/
             queueTimes.put(element, time);
             if (time > maxTime) maxTime = time;
         }
