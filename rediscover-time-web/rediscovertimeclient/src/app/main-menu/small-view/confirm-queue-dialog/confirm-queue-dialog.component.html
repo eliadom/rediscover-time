@@ -14,12 +14,12 @@
 
   <div class="inputNom">
     <div class="inputNomPetit">
-    ...o escriu el codi de la targeta a continuació
+      ...o escriu el codi de la targeta a continuació
     </div>
     <form class="example-form" [formGroup]="formGroup" style="margin: 10px 0; width: 100%">
       <mat-form-field class="inputElement"
                       appearance="outline"
-                      >
+      >
         <mat-label>Codi tarjeta</mat-label>
         <input matInput formControlName="cardid">
       </mat-form-field>
@@ -28,8 +28,14 @@
   </div>
 
   <div class="botons">
-    <button mat-flat-button style="width: 30%" (click)="apuntaCua()">
+    <button mat-flat-button style="width: 30%; margin: 0 auto" (click)="apuntaCua()">
       Fer cua
     </button>
+    <div class="progres" *ngIf="loading">
+      Processant peticio...
+      <mat-progress-spinner class="loadingContainerSmall"
+                            mode="indeterminate"
+      ></mat-progress-spinner>
+    </div>
   </div>
 </div>

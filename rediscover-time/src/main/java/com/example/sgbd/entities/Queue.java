@@ -33,7 +33,9 @@ public class Queue implements Serializable {
     private String id;
     // estimated waiting time in minutes
     private int estimatedTime;
-    private int timeForNextTrain;
+    private int timeForNextDeparture;
+
+    private int currentWaitTime;
 
     //people on ride
     private int capacity;
@@ -72,15 +74,16 @@ public class Queue implements Serializable {
 
     }
 
-    public Queue(String name, int estimatedTime, int timeForNextTrain, int maxCapacity, int capacity, List<Client> clientsInQueue) {
+    public Queue(String name, int estimatedTime, int timeForNextDeparture, int maxCapacity, int capacity, List<Client> clientsInQueue, int currentWaitTime) {
         this.id = name;
         this.estimatedTime = estimatedTime;
-        this.timeForNextTrain = timeForNextTrain;
+        this.timeForNextDeparture = timeForNextDeparture;
         this.maxCapacity = maxCapacity;
         this.capacity = capacity;
         this.clientsInQueue = new ArrayList<>();
         if (clientsInQueue != null)
             this.clientsInQueue.addAll(clientsInQueue);
+        this.currentWaitTime = currentWaitTime;
     }
 
     public String getId() {
@@ -105,20 +108,38 @@ public class Queue implements Serializable {
     }
 
     public void modifyTimeForNextTrain(int rate) {
-        this.timeForNextTrain -= rate;
+        this.timeForNextDeparture -= rate;
     }
 
-    public int resetTimeForNextTrain() {
-        this.timeForNextTrain = estimatedTime + waitTimeinMS();
-        return this.timeForNextTrain;
+//    public int resetTimeForNextTrain() {
+//        this.timeForNextTrain = estimatedTime;
+//        return this.timeForNextTrain;
+//    }
+
+    public int setTimeTillNextDeparture(){
+        int mida = (clientsInQueue==null) ? 0 : clientsInQueue.size();
+        if (mida > maxCapacity){
+            mida = maxCapacity;
+        }
+
+        int timeToBoard = (int) (mida * 1.5);
+        int timeToDismount = (int) (capacity * 1.5);
+
+        this.timeForNextDeparture = (int) (((timeToBoard + timeToDismount)*1000) + estimatedTime);
+
+        return this.timeForNextDeparture;
     }
 
-    public int waitTimeinMS() {
-        int mida = (clientsInQueue == null) ? 0 : clientsInQueue.size();
-        double timeToBoard = mida * 1.5;
-        double timeToDismount = capacity * 1.5;
 
-        return (int) (timeToBoard + timeToDismount) * 1000;
+    public int setCurrentWaitTime(){
+        int ridingTimes = (capacity/maxCapacity)*estimatedTime;
+
+        this.currentWaitTime = this.timeForNextDeparture + ridingTimes;
+        return this.currentWaitTime;
+    }
+
+    public int getCurrentWaitTime(){
+        return this.currentWaitTime;
     }
 
 //    public Vector<Client> takeClientsFromQueue(){
@@ -147,8 +168,8 @@ public class Queue implements Serializable {
 //        return aEliminar;
 //    }
 
-    public int getTimeForNextTrain() {
-        return this.timeForNextTrain;
+    public int getTimeForNextDeparture() {
+        return this.timeForNextDeparture;
     }
 
     public int getCapacity() {
@@ -170,6 +191,6 @@ public class Queue implements Serializable {
 
 class queueComp implements Comparator<Queue> {
     public int compare(Queue a, Queue b) {
-        return a.getTimeForNextTrain() - b.getTimeForNextTrain();
+        return a.getTimeForNextDeparture() - b.getTimeForNextDeparture();
     }
 }

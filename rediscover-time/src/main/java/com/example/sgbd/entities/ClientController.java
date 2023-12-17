@@ -34,7 +34,8 @@ public class ClientController {
         Double queueSize = (double)queue.getCapacity();
         Double coasterCap = (double)queue.getMaxCapacity();
         Double waitingCicles = Math.floor(queueSize/coasterCap);
-        int timeinqueue = (int) (waitingCicles*queue.waitTimeinMS());
+        int timeinqueue = (int) (waitingCicles*queue.getCurrentWaitTime());
+
         client.setEstimatedTimeinQueue(timeinqueue);
         client = clientService.addClientQueue(client.getId(), queue);
         queueService.removeQueue(queue);
